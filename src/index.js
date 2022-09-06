@@ -4,12 +4,15 @@ import Picker from "./Picker";
 
 export * from './useColorPicker'
 
-function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => {}, hideControls = false, hideInputs = false, hidePresets = false, presets = [], hideEyeDrop = false, hideAdvancedSliders = false, hideColorGuide = false, hideInputType = false, width = 294, height = 294 }) {
+function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => { }, hideControls = false, hideInputs = false, hidePresets = false, presets = [], hideEyeDrop = false, hideAdvancedSliders = false, hideColorGuide = false, hideInputType = false, width = 294, height = 294 }) {
   const contRef = useRef(null);
   const [bounds, setBounds] = useState({});
 
+  const onScroll = () => { return setBounds(contRef?.current?.getBoundingClientRect()); };
+
   useEffect(() => {
     setBounds(contRef?.current?.getBoundingClientRect());
+    window.addEventListener('scroll', onScroll, { once: true });
   }, [])
 
   return (
